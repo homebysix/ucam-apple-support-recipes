@@ -5,11 +5,11 @@
     <key>Description</key>
     <string>Recipe stub for PostProcessors</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.ucam-apple-support.postprocessors</string>    
+    <string>com.github.autopkg.ucam-apple-support-recipes.postprocessors</string>    
     <key>Input</key>
     <dict/>
     <key>MinimumVersion</key>
-    <string>0.4.0</string>
+    <string>2.0</string>
     <key>Process</key>
     <array/>
 </dict>
