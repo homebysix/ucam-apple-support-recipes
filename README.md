@@ -5,7 +5,7 @@ Autopkg recipes from University of Cambridge Apple Support Team.
 
     autopkg repo-add ucam-apple-support-recipes
 
-    autopkg run ---post=com.github.autopkg.ucam-apple-support-recipes.postprocessors/TeamsPostJSS --key=webhook_url=<webhook_url> <recipe> 
+    autopkg run ---post=com.github.ucam-apple-support-recipes.postprocessors/TeamsPostJSS --key=webhook_url=<webhook_url> <recipe> 
 
 ## To use .jamf.recipes
 
