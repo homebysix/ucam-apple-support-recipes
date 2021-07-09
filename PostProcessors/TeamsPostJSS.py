@@ -14,33 +14,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-from __future__ import print_function
+"""Post message to Microsoft Teams based on result from autopkg"""
 
-import requests
+# Heavily based on
+# https://github.com/autopkg/asemak-recipes/blob/master/PostProcessors/TeamsPost.py
+# Tweaked by jwrn3 for JSSImporter output and updated to py3
 
-from autopkglib import Processor, ProcessorError
+# Teams alternative to the post processor provided by Ben Reilly (@notverypc)
+#
+# Based on Graham Pugh's slacker.py -
+# https://github.com/grahampugh/recipes/blob/master/PostProcessors/slacker.py
+# and
+# @thehill idea on macadmin slack -
+# https://macadmins.slack.com/archives/CBF6D0B97/p1542379199001400
+# Takes elements from
+# https://gist.github.com/devStepsize/b1b795309a217d24566dcc0ad136f784
+# and
+# https://github.com/autopkg/nmcspadden-recipes/blob/master/PostProcessors/Yo.py
 
-# Set the webhook_url to the one provided by Teams when you create the webhook
+
+# pylint: disable=line-too-long
+# pylint: disable=invalid-name
+
+
+import requests  # pylint: disable=import-error
+
+from autopkglib import Processor  # pylint: disable=import-error
+
 
 __all__ = ["TeamsPostJSS"]
 
 
-class TeamsPostJSS(Processor):
-    description = """Posts to Teams via webhook based on output of JSSImporter.
-        Heavily based on https://github.com/autopkg/asemak-recipes/blob/master/PostProcessors/TeamsPost.py
-        Tweaked by jwrn3 for JSSImporter output and updated to py3
-        Teams alternative to the post processor provided by Ben Reilly
-        (@notverypc)
-        Based on Graham Pugh's slacker.py -
-        https://github.com/grahampugh/recipes/blob/master/PostProcessors/slacker.py
-        and
-        @thehill idea on macadmin slack -
-        https://macadmins.slack.com/archives/CBF6D0B97/p1542379199001400
-        Takes elements from
-        https://gist.github.com/devStepsize/b1b795309a217d24566dcc0ad136f784
-        and
-        https://github.com/autopkg/nmcspadden-recipes/blob/master/PostProcessors/Yo.py"""
+class TeamsPostJSS(Processor):  # pylint: disable=too-few-public-methods
+    description = """Posts to Teams via webhook based on output of JSSImporter."""
 
     input_variables = {
         "jss_importer_summary_result": {
@@ -58,15 +64,14 @@ class TeamsPostJSS(Processor):
     __doc__ = description
 
     def main(self):
-        was_imported = self.env.get("jss_package_updated")
+        """Construct message from autopkg results and post to Teams"""
+
         jss_changed_objects = self.env.get("jss_changed_objects")
-        jss_info = self.env.get("jss_importer_summary_result")
         webhook_url = self.env.get("webhook_url")
         prod_name = self.env.get("prod_name")
         jss_server = self.env.get("JSS_URL")
         jss_importer_summary_result = self.env.get("jss_importer_summary_result")
 
-        # name = jss_importer_summary_result["data"]["Name"]
         version = jss_importer_summary_result["data"]["Version"]
         groups = jss_importer_summary_result["data"]["Groups"]
         policy = jss_importer_summary_result["data"]["Policy"]
