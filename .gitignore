@@ -1,0 +1,9 @@
+# Python files
+__pycache__/
+*.pyc
+
+# .DS_Store files get everywhere
+.DS_Store
+
+# Misc others
+.vscode
