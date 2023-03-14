@@ -79,7 +79,8 @@ class TeamsPostJSS(Processor):  # pylint: disable=too-few-public-methods
 
         if jss_changed_objects:
 
-            teams_text = f"Version: **{version}**  \
+            teams_text = f"**This processor is now deprecated following JSSImporter's deprecation. It will be removed from this repo in summer 2023.**  \
+                            \nVersion: **{version}**  \
                             \nPackage: **{package}**  \
                             \nPolicy: **{policy}**  \
                             \nGroups: **{groups}**"
